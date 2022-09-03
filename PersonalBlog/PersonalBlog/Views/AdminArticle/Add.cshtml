@@ -1,0 +1,76 @@
+﻿@using PersonalBlog.Data
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/_AdminLayout.cshtml";
+}
+
+<section class="content-header">
+    <h4>Article Add</h4>
+    <small class="text-primary">
+        <i class="fa fa-info-circle"></i>
+       Add article on this page.
+    </small>
+</section>
+
+<section class="content">
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div class="card card-info">
+                <div class="card-header">
+                    <h3 class="card-title">Add Article</h3>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm("AddArticle", "AdminArticle", FormMethod.Post))
+                    {
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Title</label>
+                            <div class="col-sm-10">
+                                <textarea name="Title" id="txtTitle" class="form-control" placeholder="Title..."></textarea>
+
+
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Preview Content</label>
+                            <div class="col-sm-10">
+                                <textarea name="PreContent" id="txtPreContent" class="form-control" placeholder="Preview Content..."></textarea>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Article Content</label>
+                            <div class="col-sm-10">
+                                <textarea name="Content" id="txtContent" class="form-control" placeholder="Article Content..."></textarea>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Category</label>
+                            <div class="col-sm-10">
+                                <select name="CategoryId" id="selectCatId" class="form-control select2">
+                                   @foreach (Category category in ViewBag.Categories)
+                                   {
+                                       <option value="@category.Id">@category.Name</option>
+                                   }
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group float-right">
+                            <button class="btn btn-outline-info">Save</button>
+                        </div>
+
+
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+
+</section>

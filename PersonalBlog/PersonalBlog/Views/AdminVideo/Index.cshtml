@@ -1,0 +1,100 @@
+﻿@using PersonalBlog.Data
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/_AdminLayout.cshtml";
+}
+
+<section class="content-header">
+    <h4>Video Manage</h4>
+    <small class="text-primary">
+        <i class="fa fa-info-circle"></i>
+        List, Add or delete Article video on this page.
+    </small>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card card-info">
+                <div class="card-blue card-header">
+                    <h3 class="card-title">Add Video</h3>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm("AddVideo", "AdminVideo", FormMethod.Post))
+                    {
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Youtube Frame</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="Frame" class="form-control" />
+
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Description</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="Description" class="form-control" />
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Article</label>
+                            <div class="col-sm-9">
+                           <select class="form-control select2" id="selectArticleId" name="ArticleId">
+
+                               @foreach (Article article in ViewBag.Articles)
+                               {
+                                   <option value="@article.Id">@Html.Raw(article.Title)</option>
+                               }
+
+                           </select>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group float-right">
+                            <button class="btn btn-outline-info">Save</button>
+                        </div>
+
+                    }
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-12 row">
+
+            <style>
+
+                iframe {
+                    width: 100% !important;
+                    height: 50% !important;
+                }
+            </style>
+
+
+
+            @foreach (ArticleVideo video in ViewBag.Videos)
+            {
+                <div class="col-md-4 mt-4 mb-4">
+                    <h4 style="min-height:100px">@video.Description</h4>
+                    <hr />
+                    @Html.Raw(video.Frame)
+                    <hr />
+                    @Html.Raw(video.Article.Id)
+                    <hr />
+                    <a href="/AdminVideo/Delete?id=@video.Id" class="btn btn-danger btn-xs">
+                        <i class="fa fa-times"></i>Remove
+                    </a>
+                    <hr />
+                    <br />
+                    <br />
+                    <br />
+                </div>
+
+            }
+        </div>
+    </div>
+</section>

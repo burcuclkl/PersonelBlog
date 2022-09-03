@@ -1,0 +1,50 @@
+﻿@using PersonalBlog.Data
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/_ClientLayout.cshtml";
+}
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="section-title">
+            <h2>Last Posted 8 Articles</h2>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    @foreach (Article article in ViewBag.Articles)
+    {
+        <div class="col-md-6">
+            <div class="post post-thumb">
+                <a href="/Client/ArticleDetail?articleId=@article.Id" class="post-img">
+                    @if (article.ArticleImages != null && article.ArticleImages.Count > 0)
+                    {
+                        <img src="~/@article.ArticleImages.FirstOrDefault().Path" />
+                    }
+                    else
+                    {
+                        <img src="~/client/img/post-1.jpg"/>
+                    }
+
+                </a>
+                <div class="post-body">
+                    <div class="post-meta">
+                        <a href="#" class="post-category">@article.Category.Name</a>
+                        <span class="post-date">@article.PublishDate.Value.ToLongDateString()</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/Client/ArticleDetail?articleId=@article.Id">@Html.Raw(article.Title)</a>
+                    </h3>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
+
+

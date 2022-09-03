@@ -1,0 +1,55 @@
+﻿@using PersonalBlog.Data
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/_AdminLayout.cshtml";
+}
+
+<section class="content-header">
+    <h4>Category List</h4>
+    <small class="text-primary">
+        <i class="fa fa-info-circle"></i>
+        Add, delete or update category on this page.
+    </small>
+</section>
+
+
+<section class="content">
+
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Remove</th>
+                <th>Update</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Category category in ViewBag.Category)
+            {
+                <tr>
+                    <td>@category.Id</td>
+                    <td>@category.Name</td>
+                    <td>@category.Description</td>
+                    <td class="text-center">
+                        <a href="/AdminCategory/DeleteCategory?id=@category.Id" class="btn btn-xs btn-danger">
+                            <i class="fa fa-trash"></i>Remove
+                        </a>
+                    </td>
+                    <td class="text-center">
+                        <a href="/AdminCategory/Update?id=@category.Id" class="btn btn-xs btn-warning">
+                            <i class="fa fa-recycle"></i>Update
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <hr />
+    <div class="row col-md-12">
+       <a href="/AdminCategory/Add" class="btn btn-flat btn-info">
+        <i class="fa fa-plus-circle"></i>New Category</a>
+    </div>
+
+</section>

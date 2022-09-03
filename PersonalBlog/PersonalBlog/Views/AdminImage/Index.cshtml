@@ -1,0 +1,75 @@
+﻿@using PersonalBlog.Data
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/_AdminLayout.cshtml";
+}
+
+<section class="content-header">
+    <h4>Video Manage</h4>
+    <small class="text-primary">
+        <i class="fa fa-info-circle"></i>
+        List, Add or delete Article image(s) on this page.
+    </small>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card card-info">
+                <div class="card-blue card-header">
+                    <h3 class="card-title">Add Image</h3>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm("AddImage", "AdminImage", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+                    {
+
+                        <div class="form-group">
+                            <label for="exampleInputFile">Article Image</label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input multiple name="Images" type="file" class="custom-file-input" />
+                                    <label class="custom-file-label" for="exampleInputFile">Choose File ...</label>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label>Article</label>
+                            <div class="input-group">
+                                <select class="form-control select2" id="selectArticleId" name="ArticleId">
+
+                                    @foreach (Article article in ViewBag.Articles)
+                                    {
+                                        <option value="@article.Id">@Html.Raw(article.Title)</option>
+                                    }
+
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group float-right">
+                            <button class="btn btn-outline-info">Save</button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12 row">
+            @foreach (ArticleImages image in ViewBag.Images)
+            {
+                <div class="col-md-2">
+                    <img src="~/@image.Path" width="50" height="50"/>
+                 
+                    <a href="/AdminImage/Delete?id=@image.Id" class="btn btn-danger btn-xs"> 
+                        <i class="fa fa-times"></i>
+                    </a>
+                    <br />
+                    <small>@Html.Raw(image.Article.Title)</small>
+                </div>
+            }
+        </div>
+    </div>
+</section>

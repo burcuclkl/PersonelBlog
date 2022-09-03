@@ -1,0 +1,58 @@
+﻿@using PersonalBlog.Data
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/_AdminLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+<section class="content-header">
+    <h4>Comment List</h4>
+    <small class="text-primary">
+        <i class="fa fa-info-circle"></i>
+        Confirm or reject client post comment(s)
+    </small>
+</section>
+
+
+<section class="content">
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Content</th>
+                <th>Ip Address</th>
+                <th>Artcile</th>
+                <th>Confirm</th>
+                <th>Reject</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Comment comment in ViewBag.Comments)
+            {
+            <tr>
+                <td>@comment.FullName</td>
+                <td>@comment.Email</td>
+                <td>@comment.Content</td>
+                <td>@comment.Ip</td>
+                <td>@Html.Raw(comment.Article.Title)</td>
+
+                <td>
+                    <a href="/AdminComment/ChangeCommentState?id=@comment.Id&type=1" class="btn btn-xs btn-success">
+                        <i class="fa fa-check"></i>Confirm
+                    </a>
+
+                </td>
+                <td>
+                    <a href="/AdminComment/ChangeCommentState?id=@comment.Id&type=0" class="btn bnt-xs btn-danger">
+                        <i class=" fa fa-times"></i> reeject
+                    </a>
+                </td>
+            </tr>
+            }
+
+        </tbody>
+    </table>
+
+</section>

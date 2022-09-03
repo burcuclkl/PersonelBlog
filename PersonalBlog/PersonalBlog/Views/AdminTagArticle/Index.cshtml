@@ -1,0 +1,92 @@
+﻿@using PersonalBlog.Data
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/_AdminLayout.cshtml";
+}
+
+    <section class="content-header">
+        <h4>Tag Article Manage</h4>
+        <small class="text-primary">
+            <i class="fa fa-info-circle"></i>
+            List, Add or Delete Article-Tag image(s) on this page.
+        </small>
+    </section>
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="card card-info">
+                <div class="card-blue card-header">
+                    <h3 class="card-title">Add Tag-Article</h3>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm("AddTagArticle", "AdminTagArticle", FormMethod.Post))
+                    {
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Article</label>
+                            <div class="col-sm-10">
+                                <select class="form-control select2" id="selectArticleId" name="ArticleId">
+                                    @foreach (Article article in ViewBag.Articles)
+                                    {
+                                        <option value="@article.Id">
+                                            @Html.Raw(article.Title)
+                                        </option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Tag(s)</label>
+                            <div class="col-sm-10">
+                                <select class="form-control select2" id="selectTagId" name="TagId">
+                                    @foreach (Tag tag in ViewBag.Tags)
+                                    {
+                                            <option value="@tag.Id">
+                                                @tag.Content
+                                            </option>
+                                    }
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group float-right">
+                            <button class="btn btn-outline-info">Save</button>
+                        </div>
+
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Tag</th>
+                        <th>Article</th>
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (TagArticle tagArticle in ViewBag.TagArticle)
+                    {
+                    <tr>
+                        <td>@tagArticle.Id</td>
+                        <td>@tagArticle.Tag.Content</td>
+                        <td>@Html.Raw(tagArticle.Article.Title)</td>
+                        <td>
+                            <a class="btn btn-xs btn-danger" href="/AdminTagArticle/Delete?id=@tagArticle.Id">
+                                <i class="fa fa-times"></i>Remove
+                            </a>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</section>

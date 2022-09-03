@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/_AdminLayout.cshtml";
+}
+
+    <section class="content-header">
+        <h4>Category Add</h4>
+        <small class="text-primary">
+            <i class="fa fa-info-circle"></i>
+            Add new category
+        </small>
+    </section>
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="card card-info">
+                <div class="card-header">
+                    <h3 class="card-title">Save Category</h3>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm("AddCategory", "AdminCategory", FormMethod.Post))
+                    {
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="Name" class="form-control" placeholder="category name" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Description</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="Description" class="form-control" placeholder="Description" />
+                            </div>
+                        </div>
+                        <div class="form-group float-right">
+                            <button class="btn btn-outline-info">Save</button>
+                        </div>
+
+                    }
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+</section>

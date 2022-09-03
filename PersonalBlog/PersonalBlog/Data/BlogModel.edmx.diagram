@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="238f958a3feb4ceca347259f37ded244" Name="Diagram1">
+        <EntityTypeShape EntityType="BlogDBModel.Article" Width="1.5" PointX="3" PointY="4.75" />
+        <EntityTypeShape EntityType="BlogDBModel.ArticleImages" Width="1.5" PointX="5.25" PointY="2.75" />
+        <EntityTypeShape EntityType="BlogDBModel.ArticleVideo" Width="1.5" PointX="5.25" PointY="11.75" />
+        <EntityTypeShape EntityType="BlogDBModel.Category" Width="1.5" PointX="0.75" PointY="2" />
+        <EntityTypeShape EntityType="BlogDBModel.Comment" Width="1.5" PointX="5.25" PointY="8.375" />
+        <EntityTypeShape EntityType="BlogDBModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="BlogDBModel.Tag" Width="1.5" PointX="6" PointY="6" />
+        <EntityTypeShape EntityType="BlogDBModel.TagArticle" Width="1.5" PointX="8.25" PointY="5.875" />
+        <EntityTypeShape EntityType="BlogDBModel.User" Width="1.5" PointX="0.75" PointY="5.375" />
+        <AssociationConnector Association="BlogDBModel.FK_Article_Category" />
+        <AssociationConnector Association="BlogDBModel.FK_Article_User" />
+        <AssociationConnector Association="BlogDBModel.FK_ArticleImages_Article" />
+        <AssociationConnector Association="BlogDBModel.FK_ArticleVideo_Article" />
+        <AssociationConnector Association="BlogDBModel.FK_Comment_Article" />
+        <AssociationConnector Association="BlogDBModel.FK_TagArticle_Article" />
+        <AssociationConnector Association="BlogDBModel.FK_TagArticle_Tag" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,78 @@
+﻿@using PersonalBlog.Data
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/_AdminLayout.cshtml";
+}
+
+<section class="content-header">
+    <h4>Article List</h4>
+    <small class="text-primary">
+        <i class="fa fa-info-circle"></i>
+        List article(s) on this page.
+    </small>
+</section>
+
+<section class="content">
+
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Date</th>
+                <th>Category</th>
+                <th>User</th>
+                <th>Rate Count</th>
+                <th>Rate Value</th>
+                <th>State</th>
+
+                <th>Update</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Article article in ViewBag.Articles)
+            {
+                <tr>
+                    <td>@article.Id</td>
+                    <td style="width:30%">@Html.Raw(article.Title)</td>
+                    <td>@article.PublishDate</td>
+                    <td>@article.Category.Name</td>
+                    <td>@article.User.Username - @article.User.FullName</td>
+                    <td>@article.RateCount</td>
+                    <td>@article.RateValue</td>
+
+                    @if (article.IsActive == true)
+                    {
+                        <td class="text-center">
+                            <a href="/AdminArticle/ChangeArticleState?articleId=@article.Id&state=0" class="btn bg-danger  btn-app">
+                                <span class="badge bg-success">Active</span>
+                                <i class="fa fa-times"></i> Passivate
+                            </a>
+                        </td>
+                    }
+                    else
+                    {
+                        <td class="text-center">
+                            <a href="/AdminArticle/ChangeArticleState?articleId=@article.Id&state=1" class="btn bg-success  btn-app">
+                                <span class="badge bg-danger">Passive</span>
+                                <i class="fa fa-check"></i> Activate
+                            </a>
+                        </td>
+                    }
+
+
+
+
+
+                    <td>
+                        <a href="/AdminArticle/Update?articleId=@article.Id" class="btn btn-xs btn-warning">
+                            <i class="fa fa-trash"></i>Update
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>
+

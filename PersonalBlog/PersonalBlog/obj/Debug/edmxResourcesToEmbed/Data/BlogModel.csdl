@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BlogDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="BlogDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Article" EntityType="BlogDBModel.Article" />
+    <EntitySet Name="ArticleImages" EntityType="BlogDBModel.ArticleImages" />
+    <EntitySet Name="ArticleVideo" EntityType="BlogDBModel.ArticleVideo" />
+    <EntitySet Name="Category" EntityType="BlogDBModel.Category" />
+    <EntitySet Name="Comment" EntityType="BlogDBModel.Comment" />
+    <EntitySet Name="sysdiagrams" EntityType="BlogDBModel.sysdiagrams" />
+    <EntitySet Name="Tag" EntityType="BlogDBModel.Tag" />
+    <EntitySet Name="TagArticle" EntityType="BlogDBModel.TagArticle" />
+    <EntitySet Name="User" EntityType="BlogDBModel.User" />
+    <AssociationSet Name="FK_Article_Category" Association="BlogDBModel.FK_Article_Category">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="Article" EntitySet="Article" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Article_User" Association="BlogDBModel.FK_Article_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Article" EntitySet="Article" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ArticleImages_Article" Association="BlogDBModel.FK_ArticleImages_Article">
+      <End Role="Article" EntitySet="Article" />
+      <End Role="ArticleImages" EntitySet="ArticleImages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ArticleVideo_Article" Association="BlogDBModel.FK_ArticleVideo_Article">
+      <End Role="Article" EntitySet="Article" />
+      <End Role="ArticleVideo" EntitySet="ArticleVideo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comment_Article" Association="BlogDBModel.FK_Comment_Article">
+      <End Role="Article" EntitySet="Article" />
+      <End Role="Comment" EntitySet="Comment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TagArticle_Article" Association="BlogDBModel.FK_TagArticle_Article">
+      <End Role="Article" EntitySet="Article" />
+      <End Role="TagArticle" EntitySet="TagArticle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TagArticle_Tag" Association="BlogDBModel.FK_TagArticle_Tag">
+      <End Role="Tag" EntitySet="Tag" />
+      <End Role="TagArticle" EntitySet="TagArticle" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Article">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="350" FixedLength="false" Unicode="true" />
+    <Property Name="PreContent" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PublishDate" Type="DateTime" Precision="0" />
+    <Property Name="RateCount" Type="Int32" />
+    <Property Name="CategoryId" Type="Int32" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="RateValue" Type="Decimal" Precision="8" Scale="2" />
+    <Property Name="IsActive" Type="Boolean" />
+    <NavigationProperty Name="Category" Relationship="BlogDBModel.FK_Article_Category" FromRole="Article" ToRole="Category" />
+    <NavigationProperty Name="User" Relationship="BlogDBModel.FK_Article_User" FromRole="Article" ToRole="User" />
+    <NavigationProperty Name="ArticleImages" Relationship="BlogDBModel.FK_ArticleImages_Article" FromRole="Article" ToRole="ArticleImages" />
+    <NavigationProperty Name="ArticleVideo" Relationship="BlogDBModel.FK_ArticleVideo_Article" FromRole="Article" ToRole="ArticleVideo" />
+    <NavigationProperty Name="Comment" Relationship="BlogDBModel.FK_Comment_Article" FromRole="Article" ToRole="Comment" />
+    <NavigationProperty Name="TagArticle" Relationship="BlogDBModel.FK_TagArticle_Article" FromRole="Article" ToRole="TagArticle" />
+  </EntityType>
+  <EntityType Name="ArticleImages">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Path" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Size" Type="Int32" />
+    <Property Name="ArticleId" Type="Int32" />
+    <Property Name="Extension" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Article" Relationship="BlogDBModel.FK_ArticleImages_Article" FromRole="ArticleImages" ToRole="Article" />
+  </EntityType>
+  <EntityType Name="ArticleVideo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ArticleId" Type="Int32" />
+    <Property Name="Frame" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Article" Relationship="BlogDBModel.FK_ArticleVideo_Article" FromRole="ArticleVideo" ToRole="Article" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Article" Relationship="BlogDBModel.FK_Article_Category" FromRole="Category" ToRole="Article" />
+  </EntityType>
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FullName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Content" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Ip" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="CommentId" Type="Int32" />
+    <Property Name="IsConfirmed" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Article" Relationship="BlogDBModel.FK_Comment_Article" FromRole="Comment" ToRole="Article" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Tag">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="TagArticle" Relationship="BlogDBModel.FK_TagArticle_Tag" FromRole="Tag" ToRole="TagArticle" />
+  </EntityType>
+  <EntityType Name="TagArticle">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="TagId" Type="Int32" Nullable="false" />
+    <Property Name="ArticleId" Type="Int32" Nullable="false" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Article" Relationship="BlogDBModel.FK_TagArticle_Article" FromRole="TagArticle" ToRole="Article" />
+    <NavigationProperty Name="Tag" Relationship="BlogDBModel.FK_TagArticle_Tag" FromRole="TagArticle" ToRole="Tag" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FullName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SecurityQuestion" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="SecurityAnswer" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Ip" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Article" Relationship="BlogDBModel.FK_Article_User" FromRole="User" ToRole="Article" />
+  </EntityType>
+  <Association Name="FK_Article_Category">
+    <End Type="BlogDBModel.Category" Role="Category" Multiplicity="0..1" />
+    <End Type="BlogDBModel.Article" Role="Article" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Article">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Article_User">
+    <End Type="BlogDBModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="BlogDBModel.Article" Role="Article" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Article">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ArticleImages_Article">
+    <End Type="BlogDBModel.Article" Role="Article" Multiplicity="0..1" />
+    <End Type="BlogDBModel.ArticleImages" Role="ArticleImages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Article">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ArticleImages">
+        <PropertyRef Name="ArticleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ArticleVideo_Article">
+    <End Type="BlogDBModel.Article" Role="Article" Multiplicity="0..1" />
+    <End Type="BlogDBModel.ArticleVideo" Role="ArticleVideo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Article">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ArticleVideo">
+        <PropertyRef Name="ArticleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comment_Article">
+    <End Type="BlogDBModel.Article" Role="Article" Multiplicity="0..1" />
+    <End Type="BlogDBModel.Comment" Role="Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Article">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="CommentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TagArticle_Article">
+    <End Type="BlogDBModel.Article" Role="Article" Multiplicity="1" />
+    <End Type="BlogDBModel.TagArticle" Role="TagArticle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Article">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TagArticle">
+        <PropertyRef Name="ArticleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TagArticle_Tag">
+    <End Type="BlogDBModel.Tag" Role="Tag" Multiplicity="1" />
+    <End Type="BlogDBModel.TagArticle" Role="TagArticle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tag">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TagArticle">
+        <PropertyRef Name="TagId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
